@@ -21,4 +21,4 @@ In **Settings > Extensions > DeepL Rewrite**, configure the following parameters
 ## Usage
 
 1. Select the text to improve.
-2. Press `Alt-Shift-I` (Windows) or `Option-Shift-I` (macOS), or execute the `Rewrite selected text` command from the command palette.
+2. Press `Alt-Shift-R` (Windows) or `Option-Shift-R` (macOS), or execute the `Rewrite selected text` command from the command palette.

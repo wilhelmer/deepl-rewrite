@@ -2,7 +2,7 @@
   "name": "deepl-rewrite",
   "displayName": "DeepL Rewrite",
   "description": "Improves selected text using DeepL Write.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "LWilhelmer",
   "repository": "https://github.com/wilhelmer/deepl-rewrite",
   "bugs": {
@@ -38,7 +38,7 @@
     "keybindings": [
         {
             "command": "deeplRewrite.improveText",
-            "key": "alt+shift+i",
+            "key": "alt+shift+r",
             "when": "editorTextFocus"
         }
     ],
