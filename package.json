@@ -1,0 +1,77 @@
+{
+  "name": "deepl-rewrite",
+  "displayName": "DeepL Rewrite",
+  "description": "Improves selected text using DeepL Write.",
+  "version": "0.0.1",
+  "publisher": "LWilhelmer",
+  "repository": "https://github.com/wilhelmer/deepl-rewrite",
+  "bugs": {
+    "url": "https://github.com/wilhelmer/deepl-rewrite/issues"
+  },
+  "homepage": "https://github.com/wilhelmer/deepl-rewrite",
+  "keywords": [
+    "deepl",
+    "write",
+    "rewrite",
+    "improve",
+    "lint",
+    "linter"
+  ],
+  "author": "Lars Wilhelmer",
+  "license": "MIT",
+  "categories": [
+    "Other"
+  ],
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "icon": "icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "deeplRewrite.improveText",
+        "title": "Rewrite selected text"
+      }
+    ],
+    "keybindings": [
+        {
+            "command": "deeplRewrite.improveText",
+            "key": "alt+shift+i",
+            "when": "editorTextFocus"
+        }
+    ],
+    "configuration": {
+      "title": "DeepL Rewrite",
+      "properties": {
+        "deeplRewrite.apiKey": {
+          "type": "string",
+          "description": "Your DeepL Write API key. Requires a DeepL API Pro subscription.",
+          "default": ""
+        },
+        "deeplRewrite.maxCharacters": {
+          "type": "number",
+          "description": "Maximum number of characters sent to DeepL for text improvement. Use this to avoid high usage-based costs.",
+          "default": 500,
+          "minimum": 10
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "vscode:prepublish": "npm run package",
+    "package": "webpack --mode production --devtool hidden-source-map"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.64.0",
+    "typescript": "^4.5.4",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.8.1"
+  }
+}
