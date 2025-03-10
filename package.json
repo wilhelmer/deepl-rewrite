@@ -2,7 +2,7 @@
   "name": "deepl-rewrite",
   "displayName": "DeepL Rewrite",
   "description": "Improves selected text using DeepL Write.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "LWilhelmer",
   "repository": "https://github.com/wilhelmer/deepl-rewrite",
   "bugs": {

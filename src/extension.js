@@ -1,8 +1,9 @@
 const vscode = require('vscode');
+const { Selection } = vscode;
 const axios = require('axios');
+const editor = vscode.window.activeTextEditor;
 
 async function improveText() {
-    const editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showErrorMessage('No active editor found.');
         return;
@@ -17,19 +18,15 @@ async function improveText() {
         return;
     }
 
-    const document = editor.document;
-    const selection = editor.selection;
-    let text = document.getText(selection);
- 
-    if (!text.trim()) {
-        vscode.window.showErrorMessage('No text selected.');
-        return;
+    let text = editor.document.getText(editor.selection).trim();
+    if (text === "") {
+        text = getParagraph();
     }
-
     if (text.length > maxCharacters) {
         text = text.substring(0, maxCharacters);
     }
-
+    text = text.replace("\n", " ").trim();
+    
     const apiUrl = 'https://api.deepl.com/v2/write/rephrase';
 
     try {
@@ -46,7 +43,7 @@ async function improveText() {
         if (response.data && response.data.improvements && response.data.improvements.length > 0) {
             const improvedText = response.data.improvements[0].text;
 
-            if (text.replace("\n", " ".trim()) === improvedText) {
+            if (text === improvedText) {
                 vscode.window.showErrorMessage('No improvements found.');
             }
             else {
@@ -57,7 +54,7 @@ async function improveText() {
 
                 if (userInput !== undefined) {
                     editor.edit(editBuilder => {
-                        editBuilder.replace(selection, userInput);
+                        editBuilder.replace(editor.selection, userInput);
                     });
                 }
             }
@@ -68,6 +65,20 @@ async function improveText() {
         vscode.window.showErrorMessage('Error contacting the DeepL API: ' + (error.response?.data?.message || error.message));
     }
 }
+
+function getParagraph() {
+    if (typeof editor !== 'undefined') {
+        let startLine = editor.selection.start.line;
+        let endLine = editor.selection.end.line;
+        const endCharacter = editor.document.lineAt(endLine).text.length;
+        editor.selection = new Selection(startLine, 0, startLine, endCharacter);
+        let paragraph = editor.selection;
+        let result = editor.document.getText(paragraph);
+        return result !== undefined ? result : '';
+    } else {
+        return '';
+    }
+};
 
 function activate(context) {
     let disposable = vscode.commands.registerCommand('deeplRewrite.improveText', improveText);
