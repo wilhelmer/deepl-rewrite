@@ -2,7 +2,7 @@
   "name": "deepl-rewrite",
   "displayName": "DeepL Rewrite",
   "description": "Improves selected text using DeepL Write.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "LWilhelmer",
   "repository": "https://github.com/wilhelmer/deepl-rewrite",
   "bugs": {
@@ -36,11 +36,11 @@
       }
     ],
     "keybindings": [
-        {
-            "command": "deeplRewrite.improveText",
-            "key": "alt+shift+r",
-            "when": "editorTextFocus"
-        }
+      {
+        "command": "deeplRewrite.improveText",
+        "key": "alt+shift+r",
+        "when": "editorTextFocus"
+      }
     ],
     "configuration": {
       "title": "DeepL Rewrite",
@@ -55,6 +55,53 @@
           "description": "Maximum number of characters sent to DeepL for text improvement. Use this to avoid high usage-based costs.",
           "default": 500,
           "minimum": 10
+        },
+        "deeplRewrite.targetLang": {
+          "type": "string",
+          "enum": [
+            "de",
+            "en-GB",
+            "en-US",
+            "es",
+            "fr",
+            "it",
+            "pt-BR",
+            "pt-PT"
+          ],
+          "description": "The language of the improved text.",
+          "default": "en-US"
+        },
+        "deeplRewrite.writingStyle": {
+          "type": "string",
+          "enum": [
+            "simple",
+            "business",
+            "academic",
+            "casual",
+            "default",
+            "prefer_simple",
+            "prefer_business",
+            "prefer_academic",
+            "prefer_casual"
+          ],
+          "description": "Changes the writing style of your improvements. Currently supported for the following target languages: de, en-GB, en-US.",
+          "default": "default"
+        },
+        "deeplRewrite.tone": {
+          "type": "string",
+          "enum": [
+            "enthusiastic",
+            "friendly",
+            "confident",
+            "diplomatic",
+            "default",
+            "prefer_enthusiastic",
+            "prefer_friendly",
+            "prefer_confident",
+            "prefer_diplomatic"
+          ],
+          "description": "Adjusts the tone of your improvements. Currently supported for the following target languages: de, en-GB, en-US.",
+          "default": "default"
         }
       }
     }

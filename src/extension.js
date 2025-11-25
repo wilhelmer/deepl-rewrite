@@ -11,6 +11,9 @@ async function improveText() {
 
     const config = vscode.workspace.getConfiguration('deeplRewrite');
     const maxCharacters = config.get('maxCharacters', 500);
+    const targetLang = config.get('targetLang', 'en-US');
+    const writingStyle = config.get('writingStyle', 'default');
+    const tone = config.get('tone', 'default');
     const apiKey = config.get('apiKey', '');
 
     if (!apiKey) {
@@ -32,7 +35,9 @@ async function improveText() {
     try {
         const response = await axios.post(apiUrl, {
             text: [text],
-            target_lang: 'en-US'
+            target_lang: targetLang,
+            writing_style: writingStyle,
+            tone: tone
         }, {
             headers: {
                 'Authorization': `DeepL-Auth-Key ${apiKey}`,
